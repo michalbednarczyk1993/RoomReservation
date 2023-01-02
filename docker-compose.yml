@@ -1,1 +1,27 @@
 version: "3.7"
+
+services:
+  postgres:
+    # Please check this blog post
+    # https://geshan.com.np/blog/2021/12/docker-postgres/
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=pass
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      -  internal_network
+
+networks:
+  internal_network:
+    name: internal_network
+    driver: bridge
+
+volumes:
+  pg_data:
+    driver: local
