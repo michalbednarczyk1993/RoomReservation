@@ -4,10 +4,11 @@ REPOSITORIES=(RoomReservation.ReservationService)
 for REPOSITORY in ${REPOSITORIES[*]}
 do
 	 echo ========================================================
-	 echo Pulling the repository: $REPOSITORY
+	 echo Pulling the repository: "$REPOSITORY"
 	 echo ========================================================
-	 cd $REPOSITORY &&
+	 cd "$REPOSITORY" &&
 	 git checkout develop &&
+	 git fetch --all &&
 	 git pull &&
 	 git checkout master &&
 	 git pull &&
