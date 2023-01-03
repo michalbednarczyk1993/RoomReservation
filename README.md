@@ -1,2 +1,2 @@
-# RoomReservationServiceMgmt
-Repository created to management room reservation services
+# RoomReservation project root
+Repository created to managment room reservation services
