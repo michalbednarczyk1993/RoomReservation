@@ -1,14 +1,15 @@
 
-$repos = ("RoomReservation.ReservationService")
+$repos = ("RoomReservation.ReservationService", "RoomReservation.DatabaseManagement")
 
 foreach($repo in $repos) {
     Write-Host "=========================================="
     Write-Host "Pulling the Repository: "$repo
     Write-Host "=========================================="
-    cd $REPOSITORY &&
-    git checkout develop &&
-    git pull &&
-    git checkout master &&
-    git pull &&
-    cd ..
+    Set-Location $REPOSITORY -and
+    git checkout develop -and
+    git fetch --all -and
+    git pull -and
+    git checkout master -and
+    git pull -and
+    cd..
 }
