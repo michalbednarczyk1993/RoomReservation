@@ -1,5 +1,5 @@
 
-$repos = ("RoomReservation.ReservationService")
+$repos = ("RoomReservation.ReservationService", "RoomReservation.DatabaseManagement")
 
 foreach($repo in $repos) {
     Write-Host "=========================================="
