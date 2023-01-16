@@ -3,18 +3,28 @@ version: "3.7"
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres
+    container_name: rooms_database
     restart: always
     environment:
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=pass
-      - POSTGRES_DB=database
+      - POSTGRES_DB=rooms_database
     volumes:
-      - pg_data:/var/lib/postgresql/data:rw
+      - rooms_data:/var/lib/postgresql/data:rw
     ports:
       - '5432:5432'
     networks:
       -  internal_network
+#
+#  pgadmin:
+#    container_name: pgadmin
+#    image: dpage/pgadmin
+#    restart: always
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: username@admin.com
+#      PGADMIN_DEFAULT_PASSWORD: pass
+#    ports:
+#      - '5050:80'
 
 networks:
   internal_network:
@@ -22,5 +32,5 @@ networks:
     driver: bridge
 
 volumes:
-  pg_data:
+  rooms_data:
     driver: local

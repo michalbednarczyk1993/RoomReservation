@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/RoomReservations.iml" filepath="$PROJECT_DIR$/.idea/RoomReservations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RoomReservation.DatabaseManagement/db-management.iml" filepath="$PROJECT_DIR$/RoomReservation.DatabaseManagement/db-management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RoomReservation.ReservationService/reservation-service.iml" filepath="$PROJECT_DIR$/RoomReservation.ReservationService/reservation-service.iml" />
     </modules>
   </component>
 </project>
