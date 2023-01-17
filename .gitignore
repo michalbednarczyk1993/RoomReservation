@@ -29,3 +29,4 @@ build/
 # ignore another services
 /RoomReservation.DatabaseManagement/
 /RoomReservation.ReservationService/
+/RoomReservation.RoomService/

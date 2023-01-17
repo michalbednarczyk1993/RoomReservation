@@ -1,18 +1,33 @@
 version: "3.7"
 
 services:
-  postgres:
-    image: postgres:latest
-    container_name: postgres
+  rooms_database:
+    image: rooms_database:latest
+    container_name: rooms_database
     restart: always
     environment:
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=pass
-      - POSTGRES_DB=database
+      - POSTGRES_DB=rooms
     volumes:
       - pg_data:/var/lib/postgresql/data:rw
     ports:
       - '5432:5432'
+    networks:
+      -  internal_network
+
+  reservations_database:
+    image: reservations_database:latest
+    container_name: reservations_database
+    restart: always
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=reservations
+    volumes:
+      - pg_data:/var/lib/postgresql/data:rw
+    ports:
+      - '5433:5432'
     networks:
       -  internal_network
 

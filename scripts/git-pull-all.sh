@@ -1,5 +1,5 @@
 #!/bin/bash
-REPOSITORIES=(RoomReservation.ReservationService RoomReservation.DatabaseManagement)
+REPOSITORIES=(RoomReservation.ReservationService RoomReservation.DatabaseManagement RoomReservation.RoomService)
 
 for REPOSITORY in ${REPOSITORIES[*]}
 do
