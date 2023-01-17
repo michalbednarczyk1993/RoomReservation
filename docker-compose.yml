@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   rooms_database:
-    image: rooms_database:latest
+    image: postgres:latest
     container_name: rooms_database
     restart: always
     environment:
@@ -10,14 +10,14 @@ services:
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=rooms
     volumes:
-      - pg_data:/var/lib/postgresql/data:rw
+      - rooms_data:/var/lib/postgresql/rooms_data:rw
     ports:
       - '5432:5432'
     networks:
       -  internal_network
 
   reservations_database:
-    image: reservations_database:latest
+    image: postgres:latest
     container_name: reservations_database
     restart: always
     environment:
@@ -25,7 +25,7 @@ services:
       - POSTGRES_PASSWORD=pass
       - POSTGRES_DB=reservations
     volumes:
-      - pg_data:/var/lib/postgresql/data:rw
+      - reservations_data:/var/lib/postgresql/reservations_data:rw
     ports:
       - '5433:5432'
     networks:
@@ -37,5 +37,7 @@ networks:
     driver: bridge
 
 volumes:
-  pg_data:
+  rooms_data:
+    driver: local
+  reservations_data:
     driver: local
