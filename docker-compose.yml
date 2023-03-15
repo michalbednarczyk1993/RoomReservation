@@ -1,35 +1,63 @@
 version: "3.7"
 
 services:
-  rooms_database:
-    image: postgres:latest
-    container_name: rooms_database
-    restart: always
-    environment:
-      - POSTGRES_USER=username
-      - POSTGRES_PASSWORD=pass
-      - POSTGRES_DB=rooms
-    volumes:
-      - rooms_data:/var/lib/postgresql/rooms_data:rw
-    ports:
-      - '5432:5432'
-    networks:
-      -  internal_network
 
-  reservations_database:
-    image: postgres:latest
-    container_name: reservations_database
-    restart: always
-    environment:
-      - POSTGRES_USER=username
-      - POSTGRES_PASSWORD=pass
-      - POSTGRES_DB=reservations
-    volumes:
-      - reservations_data:/var/lib/postgresql/reservations_data:rw
+  reservation-service:
+    build: RoomReservation.ReservationService/.
+    image: "reservation-service:0.0.1-SNAPSHOT"
+    container_name: reservation-service
     ports:
-      - '5433:5432'
+      - '8081:8081'
     networks:
-      -  internal_network
+      - internal_network
+
+  room-service:
+    build: RoomReservation.RoomsService/.
+    image: "room-service:0.0.1-SNAPSHOT"
+    container_name: room-service
+    ports:
+      - '8080:8080'
+    networks:
+      - internal_network
+
+#  rooms_database:
+#    image: postgres:latest
+#    container_name: rooms_database
+#    restart: always
+#    environment:
+#      - POSTGRES_USER=username
+#      - POSTGRES_PASSWORD=pass
+#      - POSTGRES_DB=rooms
+#    volumes:
+#      - rooms_data:/var/lib/postgresql/rooms_data:rw
+#    ports:
+#      - '5432:5432'
+#    networks:
+#      -  internal_network
+#
+#
+#  reservations_database:
+#    image: postgres:latest
+#    container_name: reservations_database
+#    restart: always
+#    environment:
+#      - POSTGRES_USER=username
+#      - POSTGRES_PASSWORD=pass
+#      - POSTGRES_DB=reservations
+#    volumes:
+#      - reservations_data:/var/lib/postgresql/reservations_data:rw
+#    ports:
+#      - '5433:5432'
+#    networks:
+#      -  internal_network
+#
+#  mysqldb:
+#    image: mysql:8
+#    networks:
+#      - employee-mysql
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_DATABASE=reservations
 
 networks:
   internal_network:
