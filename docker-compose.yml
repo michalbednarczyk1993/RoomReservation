@@ -11,6 +11,22 @@ services:
     networks:
       - internal_network
 
+  rooms_database:
+    container_name: rooms_database
+    image: mysql:8.0
+    networks:
+      - internal_network
+    environment:
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=rooms-db
+      - MYSQL_ROOT_PASSWORD=secret
+    volumes:
+      - rooms_vol:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+
   room-service:
     build: RoomReservation.RoomsService/.
     image: "room-service:0.0.1-SNAPSHOT"
@@ -19,6 +35,14 @@ services:
       - '8080:8080'
     networks:
       - internal_network
+    depends_on:
+      - rooms_database
+    environment:
+      - MYSQL_HOST=rooms_database
+      - MYSQL_USERNAME=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_DATABASE=rooms-db
+      - MYSQL_PORT=3306
 
 #  rooms_database:
 #    image: postgres:latest
@@ -66,6 +90,8 @@ networks:
 
 volumes:
   rooms_data:
+    driver: local
+  rooms_vol:
     driver: local
   reservations_data:
     driver: local
