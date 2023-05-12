@@ -16,9 +16,23 @@ services:
     image: "room-service:0.0.1-SNAPSHOT"
     container_name: room-service
     ports:
-      - '8080:8080'
+      - '8082:8080'
     networks:
       - internal_network
+
+  swagger-ui:
+    build: ./swagger-ui
+    ports:
+      - "8080:80"
+    networks:
+      - internal_network
+    volumes:
+      - RoomReservation.RoomsService/swagger.json:/usr/share/nginx/html/roomService.json
+      - RoomReservation.ReservationService/swagger.json:/usr/share/nginx/html/reservationService.json
+    depends_on:
+      - reservation-service
+      - room-service
+
 
 #  rooms_database:
 #    image: postgres:latest
@@ -64,8 +78,8 @@ networks:
     name: internal_network
     driver: bridge
 
-volumes:
-  rooms_data:
-    driver: local
-  reservations_data:
-    driver: local
+#volumes:
+#  rooms_data:
+#    driver: local
+#  reservations_data:
+#    driver: local
