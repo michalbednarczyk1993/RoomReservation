@@ -101,6 +101,16 @@ services:
     ports:
       - "3308:3306"
 
+  auth_database_mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: auth_mysql
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3309:3306"
+
 #
 #  mysqldb:
 #    image: mysql:8
