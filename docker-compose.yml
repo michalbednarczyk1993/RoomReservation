@@ -2,20 +2,33 @@ version: "3.7"
 
 services:
 
-#  reservation-service:
-#    build: RoomReservation.ReservationService/.
-#    image: "reservation-service:0.0.1-SNAPSHOT"
-#    container_name: reservation-service
-#    ports:
-#      - '8081:8081'
+# Spring microservice
+  reservation-service:
+    build: RoomReservation.ReservationService/.
+    image: "reservation-service:0.0.1-SNAPSHOT"
+    container_name: reservation-service
+    ports:
+      - '8081:8081'
 #    networks:
 #      - internal_network
-#    depends_on:
-#      - reservations_database
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/example
-#      - SPRING_DATASOURCE_USERNAME=example
-#      - SPRING_DATASOURCE_PASSWORD=example
+    depends_on:
+      - reservations-database-mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://reservations_database_mysql:3306/reservations_mysql
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+
+  reservations-database-mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: reservations_mysql
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+
+
 #
 #  room-service:
 #    build: RoomReservation.RoomsService/.
@@ -71,15 +84,7 @@ services:
 #    networks:
 #      -  internal_network
 
-  reservations_database_mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: reservations_mysql
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    ports:
-      - "3306:3306"
+
 
   rooms_database_mysql:
     image: mysql:8.0
